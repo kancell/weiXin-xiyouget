@@ -46,7 +46,7 @@ request(options, callback);
 var setcookie;
 var setcookie2;
 var j = request.jar()
-app.get('/' ,function (req, res){
+app.get('/checkcode' ,function (req, res){
     request.get({url: 'http://222.24.62.120/CheckCode.aspx', jar: j}, function (err,res,body) {
         var cookie_string = j.getCookieString('http://222.24.62.120/default2.aspx'); // "key1=value1; key2=value2; ..."
         var cookies = j.getCookies('http://222.24.62.120/default2.aspx');
@@ -76,8 +76,10 @@ app.post('/', urlencodedParser, function (req, res) {
 			var cookie_string = j.getCookieString(`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`);
 			setcookie2 = cookie_string
 		})
+        //n121605 成绩查询
 	request.get({
-			url:`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`, 
+            url: `http://222.24.62.120/xscjcx.aspx?xh=06131097&xm=%E9%A9%AC%E5%8D%9A%E6%B4%8B&gnmkdm=N121605`,
+			//url:`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`, 
 			jar: j, 
 			headers: {
 				'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
@@ -87,6 +89,7 @@ app.post('/', urlencodedParser, function (req, res) {
 				'Connection':'keep-alive',
 				'Cookie': setcookie2,
 				'Host':'222.24.62.120',
+                'Referer':'http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}',
 				'Upgrade-Insecure-Requests':'1',
 				'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'
 			}
