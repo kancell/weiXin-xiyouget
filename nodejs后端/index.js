@@ -15,7 +15,7 @@ Remote Address:222.24.62.120:80
 //Host:222.24.62.120
 //Upgrade-Insecure-Requests:1
 //User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0
-
+var iconv = require("iconv-lite");
 var express = require('express');
 var request = require('request');
 var app = express();
@@ -81,6 +81,7 @@ app.post('/', urlencodedParser, function (req, res) {
             url: `http://222.24.62.120/xscjcx.aspx?xh=06131097&xm=%E9%A9%AC%E5%8D%9A%E6%B4%8B&gnmkdm=N121605`,
 			//url:`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`, 
 			jar: j, 
+            encoding: null,
 			headers: {
 				'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
 				'Accept-Encoding':'gzip, deflate, sdch',
@@ -93,7 +94,12 @@ app.post('/', urlencodedParser, function (req, res) {
 				'Upgrade-Insecure-Requests':'1',
 				'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'
 			}
-	}).pipe(res)
+	}, function callback(err, response, data) {  
+        var body2 = iconv.decode(response.body, 'gb2312')
+         //var s = iconv.encode(response.body, 'gb2312').toString('binary');
+        //res.setHeader('Content-Type', 'text/html; charset=gbk')
+        res.send(`${body2}`)
+    })
 })
 //res.redirect(`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`)
 var server = app.listen(8888, function () {
