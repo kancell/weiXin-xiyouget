@@ -5,8 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.17.1",
+    "cheerio": "^0.22.0",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.2",
+    "iconv-lite": "^0.4.15",
     "multer": "^1.3.0",
     "npm": "^3.10.10",
     "request": "^2.81.0"

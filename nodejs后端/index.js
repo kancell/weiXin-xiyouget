@@ -5,7 +5,7 @@ Request Method:GET
 Status Code:200 OK
 Remote Address:222.24.62.120:80
 */
-
+//<form name="Form1" method="post" action="http://222.24.62.120/xscjcx.aspx?xh=06131097&amp;xm=%E9%A9%AC%E5%8D%9A%E6%B4%8B&amp;gnmkdm=N121605" id="Form1">
 //Accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
 //Accept-Encoding:gzip, deflate, sdch
 //Accept-Language:zh-CN,zh;q=0.8
@@ -18,6 +18,7 @@ Remote Address:222.24.62.120:80
 var iconv = require("iconv-lite");
 var express = require('express');
 var request = require('request');
+var cheerio = require('cheerio');
 var app = express();
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
@@ -25,24 +26,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use(cookieParser());
 var request = request.defaults({jar: true})
-/*request.post({url:'http://localhost:8888/', form: {key:'value'}}, function(err,res,body){
-    console.log(body)
-})
-var options = {
-    url: 'http://222.24.62.120/CheckCode.aspx',
-    headers: {
-        'User-Agent': 'request'
-    }
-};
 
-function callback(error, res, body) {
-    if (!error && res.statusCode == 200) {
-        console.log(res.body);
-    }
-}
-
-request(options, callback);
-*/
 var setcookie;
 var setcookie2;
 var j = request.jar()
@@ -53,9 +37,7 @@ app.get('/checkcode' ,function (req, res){
         setcookie = cookie_string
     }).pipe(res)
 })
-function callback(error, res, body) {
-        console.log(res.body);
-}
+
 app.post('/', urlencodedParser, function (req, res) {
     request.post({
 			url:'http://222.24.62.120/default2.aspx', 
@@ -96,9 +78,38 @@ app.post('/', urlencodedParser, function (req, res) {
 			}
 	}, function callback(err, response, data) {  
         var body2 = iconv.decode(response.body, 'gb2312')
-         //var s = iconv.encode(response.body, 'gb2312').toString('binary');
-        //res.setHeader('Content-Type', 'text/html; charset=gbk')
-        res.send(`${body2}`)
+        $ = cheerio.load(body2);
+        let arr = []
+        let score = []
+        $( 'td', 'tr').each(function(i, elem) {
+            let sub = []
+            sub.push($(this).text())
+            arr.push(sub)
+        });
+        for(let i = 0; i < arr.length; i++){
+               arr[i][0] = arr[i][0].replace(/\t/g,"").replace(/\r/g,"").replace(/\n/g,"")
+        }
+        let info = arr.splice(0,8) //包含学生个人信息
+        let lesson = arr.splice(0,6)
+        let temp = {}
+        for(let i = 0; i < arr.length; i++){
+            if(i%6==0&&i!==0){
+                score.push(temp)
+                temp = {}
+            }
+            var s = lesson[i%6]
+            temp[s] = arr[i][0]
+        }
+        /*arr[i][0] = arr[i][0].replace(/\t/," ").replace(/\r/," ").replace(/\n/," ")
+        $( 'tr', '.datelist').each(function(i, elem) {
+                arr.push($(this).text())
+        });
+        for(let i =0; i < arr.length; i++){
+            arr[i] = arr[i].replace(/\r\n\t\t/," ")
+            arr[i] = arr[i].replace(/\r\n\t/," ")
+        }
+        */
+        res.send(score)
     })
 })
 //res.redirect(`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`)
