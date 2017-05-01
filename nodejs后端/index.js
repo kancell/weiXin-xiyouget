@@ -31,53 +31,57 @@ var setcookie;
 var setcookie2;
 var j = request.jar()
 app.get('/checkcode' ,function (req, res){
-    request.get({url: 'http://222.24.62.120/CheckCode.aspx', jar: j}, function (err,res,body) {
+    function getCheckCode(err, response, body) {
         var cookie_string = j.getCookieString('http://222.24.62.120/default2.aspx'); // "key1=value1; key2=value2; ..."
         var cookies = j.getCookies('http://222.24.62.120/default2.aspx');
-        setcookie = cookie_string
-    }).pipe(res)
+        setcookie = cookie_string        
+    }
+    let options = {url: 'http://222.24.62.120/CheckCode.aspx', jar: j}
+    request.get(options, getCheckCode)
+    .pipe(res)
 })
 
 app.post('/', urlencodedParser, function (req, res) {
-    request.post({
-			url:'http://222.24.62.120/default2.aspx', 
-			jar: j, 
-			headers: {
-				'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-				'Accept-Encoding':'gzip, deflate, sdch',
-				'Accept-Language':'zh-CN,zh;q=0.8',
-				'Cache-Control':'max-age=0',
-				'Connection':'keep-alive',
-				'Cookie': setcookie,
-				'Host':'222.24.62.120',
-				'Upgrade-Insecure-Requests':'1',
-				'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'
-			},
-			form: req.body
-    	}, function(err,response,data){
-			var cookie_string = j.getCookieString(`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`);
-			setcookie2 = cookie_string
-		})
-        //n121605 成绩查询
-	request.get({
-            url: `http://222.24.62.120/xscjcx.aspx?xh=06131097&xm=%E9%A9%AC%E5%8D%9A%E6%B4%8B&gnmkdm=N121605`,
-			//url:`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`, 
-			jar: j, 
-            encoding: null,
-			headers: {
-				'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-				'Accept-Encoding':'gzip, deflate, sdch',
-				'Accept-Language':'zh-CN,zh;q=0.8',
-				'Cache-Control':'max-age=0',
-				'Connection':'keep-alive',
-				'Cookie': setcookie2,
-				'Host':'222.24.62.120',
-                'Referer':'http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}',
-				'Upgrade-Insecure-Requests':'1',
-				'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'
-			}
-	}, function callback(err, response, data) {  
-        var body2 = iconv.decode(response.body, 'gb2312')
+    let optionLogin = {
+        url:'http://222.24.62.120/default2.aspx', 
+        jar: j, 
+        headers: {
+            'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Encoding':'gzip, deflate, sdch',
+            'Accept-Language':'zh-CN,zh;q=0.8',
+            'Cache-Control':'max-age=0',
+            'Connection':'keep-alive',
+            'Cookie': setcookie,
+            'Host':'222.24.62.120',
+            'Upgrade-Insecure-Requests':'1',
+            'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'
+        },
+        form: req.body
+    }
+    let optionGet = {
+        url: `http://222.24.62.120/xscjcx.aspx?xh=06131097&xm=%E9%A9%AC%E5%8D%9A%E6%B4%8B&gnmkdm=N121605`,
+        //url:`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`, 
+        jar: j, 
+        encoding: null,
+        headers: {
+            'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Encoding':'gzip, deflate, sdch',
+            'Accept-Language':'zh-CN,zh;q=0.8',
+            'Cache-Control':'max-age=0',
+            'Connection':'keep-alive',
+            'Cookie': setcookie2,
+            'Host':'222.24.62.120',
+            'Referer':'http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}',
+            'Upgrade-Insecure-Requests':'1',
+            'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'
+        }
+	}
+    function callbackLogin(err, response, data) {
+        var cookie_string = j.getCookieString(`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`);
+        setcookie2 = cookie_string  
+    }
+    function callbackGet(err, response, data) {
+        let body2 = iconv.decode(response.body, 'gb2312')
         $ = cheerio.load(body2);
         let arr = []
         let score = []
@@ -97,8 +101,7 @@ app.post('/', urlencodedParser, function (req, res) {
                 score.push(temp)
                 temp = {}
             }
-            var s = lesson[i%6]
-            temp[s] = arr[i][0]
+            temp[lesson[i%6]] = arr[i][0]
         }
         /*arr[i][0] = arr[i][0].replace(/\t/," ").replace(/\r/," ").replace(/\n/," ")
         $( 'tr', '.datelist').each(function(i, elem) {
@@ -110,7 +113,11 @@ app.post('/', urlencodedParser, function (req, res) {
         }
         */
         res.send(score)
-    })
+    }
+
+    request.post(optionLogin, callbackLogin)
+        //n121605 成绩查询
+	request.get(optionGet, callbackGet)
 })
 //res.redirect(`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`)
 var server = app.listen(8888, function () {
