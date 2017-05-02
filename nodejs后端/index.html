@@ -19,6 +19,33 @@
 06131097<br>
 mima123
 </form>
+<p id="sub">666666</p>
+<script src="./jquery.js"></script>
+<script>
+
+
+document.getElementById('sub').onclick = function () {
+    let formData = {
+        __VIEWSTATE: 'dDwtNTE2MjI4MTQ7Oz5O9kSeYykjfN0r53Yqhqckbvd83A==',
+        txtUserName: document.getElementById('txtUserName').value,
+        TextBox2: document.getElementById('TextBox2').value,
+        txtSecretCode: document.getElementById('txtSecretCode').value,
+        RadioButtonList1: '学生',
+        Button1: ''
+    }
+    console.log(formData)
+    $.ajax({
+        url: "http://localhost:8888/",
+        data: formData,
+        type: "POST",
+        //contentType: false,//这里
+        //processData: false,//这两个一定设置为false
+        success: function (info) {
+            console.log(info)
+        }
+    }); 
+}
+</script>
 </body>
 </html>
 

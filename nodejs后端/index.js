@@ -30,6 +30,15 @@ var request = request.defaults({jar: true})
 var setcookie;
 var setcookie2;
 var j = request.jar()
+
+app.all('*', function(req, res, next) {  
+	res.header("Access-Control-Allow-Origin", "*");  
+	res.header("Access-Control-Allow-Headers", "X-Requested-With");  
+	res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");  
+	res.header("X-Powered-By",' 3.2.1')  
+	next();  
+}); 
+
 app.get('/checkcode' ,function (req, res){
     function getCheckCode(err, response, body) {
         var cookie_string = j.getCookieString('http://222.24.62.120/default2.aspx'); // "key1=value1; key2=value2; ..."
@@ -42,6 +51,7 @@ app.get('/checkcode' ,function (req, res){
 })
 
 app.post('/', urlencodedParser, function (req, res) {
+    console.log(req.body)
     let optionLogin = {
         url:'http://222.24.62.120/default2.aspx', 
         jar: j, 
