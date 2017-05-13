@@ -1,0 +1,4 @@
+<!--issues.wxml-->
+<view class="container">
+	<text>待开发</text>
+</view>

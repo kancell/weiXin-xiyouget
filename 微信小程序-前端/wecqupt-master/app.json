@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/more/login",
+    "pages/more/append",
+    "pages/more/more",
+    "pages/more/issues",
+    "pages/more/about",
+    "pages/core/kb/kb",
+    "pages/core/cj/cj",
+    "pages/core/ks/ks",
+    "pages/core/kjs/kjs",
+    "pages/core/xs/xs",
+    "pages/core/kd/kd",
+    "pages/core/tq/tq",
+    "pages/core/jy/jy"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#7acfa6",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "西邮get",
+    "backgroundColor": "#7acfa6", 
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "color": "#7f848a",
+    "selectedColor": "#7acfa6",
+    "backgroundColor": "#f7f6fb",
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页",
+      "iconPath": "images/index/index.png",
+      "selectedIconPath": "images/index/index@active.png"
+    },  {
+      "pagePath": "pages/more/more",
+      "text": "更多",
+      "iconPath": "images/index/more.png",
+      "selectedIconPath": "images/index/more@active.png"
+    }]
+  },
+  "networkTimeout": {
+    "request": 20000,
+    "uploadFile": 30000,
+    "downloadFile": 30000
+  }
+}

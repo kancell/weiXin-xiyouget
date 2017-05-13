@@ -1,0 +1,66 @@
+/**kb.wxss**/
+.container{
+    background-color: #fff;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+/**.main-box**/
+.main-box{
+    position: relative;
+    width: 100%;
+    height: 1328rpx;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 100rpx;
+    transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.main-box-active{
+    padding-bottom: 500rpx;
+}
+.blur-area{
+    overflow: hidden;
+}
+.blur{
+    filter: blur(3px);    
+}
+/**.kb-num-ctn**/
+.kb-num-ctn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    font-size: 9pt;
+    flex-shrink: 0;
+    width: 35rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    background: #fff;
+    border-right: 1rpx solid #eee;
+    margin-bottom: 12rpx;
+    color: #777;
+    padding-bottom: 100rpx;
+}
+.kb-num-ctn-inner{
+    z-index: 1;
+}
+.kb-num-ctn-hide{
+    transform: translate3d(-35rpx,0,0);
+}
+.kb-num-ctn view{
+    height: 100rpx;
+    line-height: 100rpx;
+    text-align: center;
+}
+
+/*重定义swiper-dots样式*/
+page .wx-swiper-dots.wx-swiper-dots-horizontal{
+    margin-bottom: -5rpx;
+}
+page .wx-swiper-dot{
+    color: rgba(255,255,255,.5);
+}
+page .wx-swiper-dot-active{
+    color: #fff;
+}

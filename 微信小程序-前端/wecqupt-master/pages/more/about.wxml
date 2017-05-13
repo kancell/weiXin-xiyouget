@@ -1,0 +1,31 @@
+<!--about.wxml-->
+<view class="container">
+	<view class="header">
+		<view class="black-cover"></view>
+		<image class="logo" src="/images/more/logo.png"></image>
+		<image class="title" src="/images/more/title.png"></image>
+	</view>
+	<view class="content">
+		<view class="version">
+			<view class="version-title">
+				<text class="title-name">西邮get</text>
+			</view>
+		</view>
+		<view class="describe">
+				<text class="desc-title">简介</text>
+				<view class="desc-list">
+					<text class="desc-list-item">Github：https://github.com/kancell/weiXin-xiyouget</text>
+				</view>
+				<text class="desc-content">西邮get是一款微信小程序，由kancell开发，有别于公众号的一种全新的连接用户与服务的方式，无需下载与安装即可在微信内被便捷地获取和传播，同时具有出色的使用体验。</text>
+				<text class="desc-content">集课表、成绩、考试、资讯、快递等功能于一身。</text>
+				<text class="desc-content">持续开发中...</text>
+		</view>
+	</view>
+	<view class="footer">
+		<view class="footer-lanshan">
+				<image src="/images/more/lanshan.png"></image>
+				<text>西安邮电大学</text>
+		</view>
+		<text>Copyright @ {{year}} All Rights Reserved</text>
+	</view>
+</view>
