@@ -1,0 +1,64 @@
+.container {
+	background: #f7f7f7;
+	align-items: stretch;
+	padding: 0;
+	height: 100%;
+	overflow: hidden;
+}
+.content{
+	flex: 1;
+	display: flex;
+	position: relative;
+	z-index: 10;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: center;
+	width: 100%;
+	height: 100%;
+}
+.input-group {
+	display: flex;
+	align-items: center;
+	padding: 25rpx 10rpx;
+	margin: 40rpx 3%;
+	background: #fff;
+	border-radius: 5px;
+	border: 2px solid #f4f4f4;
+}
+.input-label {
+	color: #888;
+	font-size: 12pt;
+	height: 20rpx;
+  width: 180rpx;
+	line-height: 25rpx;
+	padding: 0 16rpx;
+	border-right: 1px solid #d8d8d8; 
+}
+
+.confirm-btn {
+	font-size: 13pt;
+	line-height: 85rpx;
+	height: 85rpx;
+	background: #73b4ef;
+	color: #fff;
+	text-align: center;
+	border-radius: 5px;
+	margin: 50rpx 3%;
+}
+
+.main-card-item {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-top: 1rpx solid #e5e5e5;
+    border-bottom: 1rpx solid #e5e5e5;
+    margin-bottom: 20rpx;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+.info-item {
+    margin: 16rpx;
+}
+.core-item-name {
+    font-size: 10pt
+}

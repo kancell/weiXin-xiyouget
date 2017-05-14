@@ -1,5 +1,29 @@
 <!--kb.wxml-->
 <view class="container">
-    <text>开发中</text>
+	<view class="section">
+		<picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+			<view class="input-group">
+				<text class="input-label">快递公司</text>
+				<input value="{{array[index]}}" disabled="true" bindchange="bindPickerChange"/>
+			</view>
+		</picker>
+		<view class="input-group">
+			<text class="input-label">定单号码</text>
+			<input bindinput="bindKeyInput" placeholder="请输入运单号"/>
+		</view>
+		<view class="confirm-btn" bindtap="search">
+				<text>查询</text>
+		</view>
+		<view class="main-card-item">
+			<block wx:for="{{info}}" wx:key="id">
+				<view class="info-item">
+					<view>
+						<text class="core-item-name">{{item.time}}</text>
+					</view>
+					<text class="core-item-name">{{item.context}}</text>
+				</view>
+			</block>
+		</view>
+	</view>
 </view>
 
