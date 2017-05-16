@@ -1,5 +1,45 @@
 <!--tq.wxml-->
 <view class="container">
-    <text>开发中</text>
+	<picker-view indicator-style="height: 50px;" style="width: 70%; height: 200px; margin: 0 auto" value="{{value}}" bindchange="bindChange">
+		<picker-view-column>
+			<view wx:for="{{province}}" wx:key="id" style="line-height: 50px">{{item.name}}</view>
+		</picker-view-column>
+		<!--<picker-view-column>
+			<view wx:for="{{city}}" wx:key="id" style="line-height: 50px">{{item.name}}</view>
+		</picker-view-column>-->
+	</picker-view>
+	<view class="weather-city">你选择的地区：{{proState}}</view>
+	<view class="weather-city">
+		<text>你当前所在的地区：</text>
+		<text>{{cityName}}</text>
+	</view>
+	<view class="weather-info">
+		<block wx:for="{{state}}" wx:key="id">
+			<view class="info-item">
+				<view>
+					<text>日期：</text>
+					<text>{{item.date}}</text>
+				</view>
+				<view>
+					<text>天气状况：</text>
+					<text>{{item.cond.txt_d}}</text>
+				</view>
+				<view>
+					<text>最高温度：</text>
+					<text>{{item.tmp.max}}</text>
+					</view>
+				<view>
+					<text>最低温度：</text>
+					<text>{{item.tmp.min}}</text>
+				</view>
+				<view>
+					<text>降水概率：</text>
+					<text>{{item.pop}}</text>
+				</view>
+			</view>
+		</block>
+	</view>
+	<view class="confirm-btn" bindtap="search">
+			<text>重新查询</text>
+	</view>
 </view>
-

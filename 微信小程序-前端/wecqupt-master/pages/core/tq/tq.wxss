@@ -1,8 +1,12 @@
-/**kb.wxss**/
+/**tq.wxss**/
 .container{
     background-color: #fff;
     padding-bottom: 0;
     overflow: hidden;
+	font-size: 11pt;
+	align-items: stretch;
+	padding: 0;
+	height: 100%;
 }
 
 /**.main-box**/
@@ -15,52 +19,28 @@
     padding-bottom: 100rpx;
     transition: all .2s cubic-bezier(0.19, 1, 0.22, 1);
 }
-.main-box-active{
-    padding-bottom: 500rpx;
-}
-.blur-area{
-    overflow: hidden;
-}
-.blur{
-    filter: blur(3px);    
-}
-/**.kb-num-ctn**/
-.kb-num-ctn{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    font-size: 9pt;
-    flex-shrink: 0;
-    width: 35rpx;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    background: #fff;
-    border-right: 1rpx solid #eee;
-    margin-bottom: 12rpx;
-    color: #777;
-    padding-bottom: 100rpx;
-}
-.kb-num-ctn-inner{
-    z-index: 1;
-}
-.kb-num-ctn-hide{
-    transform: translate3d(-35rpx,0,0);
-}
-.kb-num-ctn view{
-    height: 100rpx;
-    line-height: 100rpx;
-    text-align: center;
-}
 
-/*重定义swiper-dots样式*/
-page .wx-swiper-dots.wx-swiper-dots-horizontal{
-    margin-bottom: -5rpx;
+.weather-info {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 30rpx
 }
-page .wx-swiper-dot{
-    color: rgba(255,255,255,.5);
+.weather-city {
+    margin-left: 19rpx
 }
-page .wx-swiper-dot-active{
-    color: #fff;
+.info-item {
+    text-align: center
+}
+.info-item view {
+    padding: 12rpx
+}
+.confirm-btn {
+	font-size: 13pt;
+	line-height: 85rpx;
+	height: 85rpx;
+	background: #73b4ef;
+	color: #fff;
+	text-align: center;
+	border-radius: 5px;
+	margin: 50rpx 3%;
 }
