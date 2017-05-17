@@ -1,12 +1,22 @@
 <!--cj.wxml-->
 <view class="container">
-	<view wx:if="{{remind}}" class="remind-box">
+	<!--<view wx:if="{{remind}}" class="remind-box">
 		<image wx:if="{{remind == '加载中'}}" class="remind-img" src="/images/index/loading.gif"></image>
 		<block wx:else>
 		  <image class="remind-img" src="/images/index/nothing.png"></image>
 		  <text class="remind-text">{{remind}}</text>
 		</block>
-	</view>
+	</view>-->
+	<form  wx:if="{{re}}">
+		<view class="input-group">
+			<image class="login-check-img" src="https://30906847.xiyouget.com/api-checkcode"></image>
+			<input placeholder="验证码" id="checkCode" bindinput="checkInput" bindfocus="checkInput" bindblur="checkInput"/>
+		</view>
+		<view class="confirm-btn" bindtap="reSearch">
+			<text>确认绑定</text>
+		</view>
+	</form>
+
 	<block wx:else>
 		<view class="cj-header">
 			<view class="cj-text">

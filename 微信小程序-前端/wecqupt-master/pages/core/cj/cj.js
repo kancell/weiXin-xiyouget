@@ -4,25 +4,39 @@ var app = getApp();
 Page({
 	data: {
 		remind: '',
-		cjInfo : [
-
-		],
-		userInfo: ''
+		re: true,
+		userInfo: '',
+		check: '',
+		cjInfo : [],
+		loginInfo: ''
 	},
 	onLoad: function(){
 		var that = this;
 		wx.showNavigationBarLoading();
 		wx.request({
-			url: app._server + "api-all",
-			method: 'post',
-			data: {
-
-			},
+			url: app._server + "api-get",
+			method: 'get',
 			success: function(res) {
-				that.setData({
-					cjInfo: res.data,
-					userInfo: app._user.info
-				})
+				if(res.statusCode === 400){
+					that.setData({
+						re: true
+					});
+					wx.getStorage({
+						key: 'oYIvq0D8WaU_1Ox7lx4Z15FjcSMw',
+						success: function(res) {
+							that.setData({
+								'loginInfo': res.data
+							})
+						} 
+					})		
+				}
+				else{
+					that.setData({
+						cjInfo: res.data,
+						userInfo: app._user.info,
+						re: false
+					})
+				}
 			},
 			fail: function(res) {
 				if(that.data.remind == '加载中'){
@@ -36,5 +50,41 @@ Page({
 				wx.hideNavigationBarLoading();
 			}
 		});
-	}
+	},
+	reSearch: function(){
+		var that = this
+/*
+__VIEWSTATE: 'dDwtNTE2MjI4MTQ7Oz5O9kSeYykjfN0r53Yqhqckbvd83A==',
+txtUserName: document.getElementById('txtUserName').value,
+TextBox2: document.getElementById('TextBox2').value,
+txtSecretCode: document.getElementById('txtSecretCode').value,
+RadioButtonList1: '学生',
+Button1: ''
+*/
+		app.showLoadToast('绑定中');
+		wx.request({
+			method: 'POST',
+			url: app._server + 'api-login',
+			data: {
+				__VIEWSTATE: 'dDwtNTE2MjI4MTQ7Oz5O9kSeYykjfN0r53Yqhqckbvd83A==',
+				txtUserName: that.data.loginInfo.txtUserName,
+				TextBox2: that.data.loginInfo.TextBox2,
+				txtSecretCode: that.data.check,
+				RadioButtonList1: '学生',
+				Button1: ''
+			},
+			success: function(res) {
+				console.log(res)
+			},
+			fail: function(res){
+				wx.hideToast();
+				app.showErrorModal(res.errMsg, '绑定失败');
+			}
+		});
+	},
+	checkInput: function(e) {
+		this.setData({
+			check: e.detail.value
+		});
+	} 
 });

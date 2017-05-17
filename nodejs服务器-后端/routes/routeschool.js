@@ -141,7 +141,7 @@ router.post('/api-login', urlencodedParser, function (req, res) {
 
     request.get(op2, callBack2)
 })
-var all
+
 
 router.get('/api-get', function (req ,res) {
     var optionGet = {
@@ -156,7 +156,7 @@ router.get('/api-get', function (req ,res) {
             'Cache-Control':'max-age=0',
             'Connection':'keep-alive',
             'Host':'222.24.62.120',
-            'Referer':'http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}',
+            'Referer':`http://222.24.62.120/xs_main.aspx?xh=${req.body.txtUserName}`,
             'Upgrade-Insecure-Requests':'1',
             'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.221 Safari/537.36 SE 2.X MetaSr 1.0'
         }
@@ -164,7 +164,10 @@ router.get('/api-get', function (req ,res) {
     function callbackGet(err, response, data) {
         var body3 = iconv.decode(response.body, 'gb2312')
         $ = cheerio.load(body3);
-        all = $("input[name='__VIEWSTATE']").val()
+        if($("title").text() == "Object moved"){
+            console.log($("title").text())
+            res.send(400)
+        }
         var arr = []
         var score = []
         $( 'td', 'tr').each(function(i, elem) {

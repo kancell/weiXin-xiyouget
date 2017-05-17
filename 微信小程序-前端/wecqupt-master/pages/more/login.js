@@ -44,7 +44,20 @@ Page({
 			success: function(res) {
 				app.showLoadToast('请稍候');
 				if(res.statusCode === 200){
-					wx.clearStorage();
+					wx.getStorage({
+					key: 'openid',
+						success: function(res) {
+							console.log(res.data.id)
+							app.saveCache(res.data.id, {
+								__VIEWSTATE: 'dDwtNTE2MjI4MTQ7Oz5O9kSeYykjfN0r53Yqhqckbvd83A==',
+								txtUserName: that.data.userid,
+								TextBox2: that.data.passwd,
+								txtSecretCode: '',
+								RadioButtonList1: '学生',
+								Button1: ''
+							})
+						} 
+					})
 					app.setUser(res.data);
 					wx.showToast({
 						title: '绑定成功',
@@ -58,8 +71,8 @@ Page({
 				}
 			},
 			fail: function(res){
-					wx.hideToast();
-					app.showErrorModal(res.errMsg, '绑定失败');
+				wx.hideToast();
+				app.showErrorModal(res.errMsg, '绑定失败');
 			}
 		});
 	},

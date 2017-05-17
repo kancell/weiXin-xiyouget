@@ -67,6 +67,12 @@ Page({
 		})
 	},
 	search: function(){
+		wx.getStorage({
+		key: 'oYIvq0D8WaU_1Ox7lx4Z15FjcSMw',
+			success: function(res) {
+				console.log(res)
+			} 
+		})
 		var that = this;
 		wx.request({
 			//`https://30906847.xiyouget.com/query?type=${option}&postid=${number}`

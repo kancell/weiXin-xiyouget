@@ -21,4 +21,9 @@ router.get('/api-booksearch', function(req, res){
 	request.get(url).pipe(res)
 })
 
+router.get('/api-login', function(req, res){
+	var url = `https://api.weixin.qq.com/sns/jscode2session?appid=wx11a0244b4c42ad6f&secret=b8fa38a69e7f4afabcc0a1148cdd5c39&js_code=${req.query.code}&grant_type=authorization_code`
+	request.get(url).pipe(res)
+})
+
 module.exports = router;
