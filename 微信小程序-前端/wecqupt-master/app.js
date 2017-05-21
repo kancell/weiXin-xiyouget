@@ -2,7 +2,16 @@
 App({
 	version: 'v0.1.2', //版本号
 	onLaunch: function() {
-		var that = this;
+		var that = this;	
+		wx.getStorage({
+			key: 'bind',
+			success: function(res) {
+				that._user.bind = res.data
+			},
+			fail: function(res){
+				that._user.bind = false
+			}
+		})
 		that.getUserInfo()
 		wx.checkSession({
 			success: function(){
@@ -20,7 +29,7 @@ App({
 									code: res.code
 								},
 								success: function(res){
-									console.log(res)
+									that.saveCache('openid', {id: res.data.openid})
 								}
 							})
 						} 
@@ -31,26 +40,6 @@ App({
 				});		
 			}
 		})
-		wx.login({
-			success: function(res) {
-				if (res.code) {
-				//发起网络请求
-					wx.request({
-						url: that._server + 'api-login',
-						data: {
-							code: res.code
-						},
-						success: function(res){
-							that.saveCache('openid', {id: res.data.openid})
-						}
-					})
-				} 
-				else {
-					that._user.bind = false
-					console.log('获取用户登录态失败！' + res.errMsg)
-				}
-			}
-		});	
 		//读取缓存
 		/*try {
 			var data = wx.getStorageInfoSync();
@@ -109,19 +98,11 @@ App({
 	},
 	//setUser函数，登录成功后存储用户信息
 	setUser: function(data) {
+		this.saveCache('studentinfo', data)
+		this.saveCache('bind', true)
 		this._user.info = data
 		this._user.bind = true
 	},
-	/*getUserInfo: function(key){
-		var that = this;
-		//获取微信用户信息
-		wx.getStorage({
-			key: key,
-			success: function(res) {
-				console.log(res.data)
-			} 
-		})
-	},*/
 	showLoadToast: function(title, duration){
 		wx.showToast({
 			title: title || '加载中',
@@ -143,7 +124,6 @@ App({
 	_server: 'https://30906847.xiyouget.com/',
 	_user: {
 		info: '',
-		login: false,
 		bind: false,
 		//微信数据
 		wx: {},

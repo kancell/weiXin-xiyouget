@@ -31,9 +31,17 @@ Page({
 					})		
 				}
 				else{
+					wx.getStorage({
+						key:'studentinfo',
+						success: function(res){
+							that.setData({
+								'userInfo': res.data
+							})
+						}
+					})
 					that.setData({
 						cjInfo: res.data,
-						userInfo: app._user.info,
+						
 						re: false
 					})
 				}
@@ -53,14 +61,6 @@ Page({
 	},
 	reSearch: function(){
 		var that = this
-/*
-__VIEWSTATE: 'dDwtNTE2MjI4MTQ7Oz5O9kSeYykjfN0r53Yqhqckbvd83A==',
-txtUserName: document.getElementById('txtUserName').value,
-TextBox2: document.getElementById('TextBox2').value,
-txtSecretCode: document.getElementById('txtSecretCode').value,
-RadioButtonList1: '学生',
-Button1: ''
-*/
 		app.showLoadToast('绑定中');
 		wx.request({
 			method: 'POST',
@@ -74,7 +74,9 @@ Button1: ''
 				Button1: ''
 			},
 			success: function(res) {
-				console.log(res)
+				setTimeout(function(){
+					that.onLoad()
+				},0)	
 			},
 			fail: function(res){
 				wx.hideToast();

@@ -13,12 +13,30 @@ Page({
 		var days = ['一','二','三','四','五','六','日'];
 		that.setData({
 			'user': app._user,
+			'studentinfo': app._user.info,
 			'time': {
 				'term': app._time.term,
 				'week': app._time.week,
 				'day': days[app._time.day - 1]
 			},
-			'bind': app._user.bind
 		});
+		if(that.data.user.info){
+			console.log('已缓存信息')
+			return
+		}
+		else{
+			wx.getStorage({
+				key: 'studentinfo',
+				success: function(res) {
+					that.setData({
+						'studentinfo': res.data,
+					})
+				},
+				fail: function(res){
+					console.log(res)
+				}
+			})
+		}
+		console.log(that.data)
 	}
 });

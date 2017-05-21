@@ -2,13 +2,13 @@
 <view class="container">
 
 	<view class="user-info-box">
-		<block wx:if="{{bind}}">
+		<block wx:if="{{user.bind}}">
 			<view class="user-info">
 				<view class="info-hd">
 					<image class="user-avatar" src="{{user.wx.avatarUrl}}"></image>
 					<view class="user-title">
-						<text class="user-name">{{user.info.name}}</text>
-						<text class="user-id">{{user.info.id}}</text>
+						<text class="user-name">{{studentinfo.name}}</text>
+						<text class="user-id">{{studentinfo.id}}</text>
 					</view>
 					<view class="time-box">
 						<text class="time-term">{{time.term}}</text>
@@ -18,11 +18,11 @@
 				<view class="info-bd">
 					<view class="info-bd-left">
 						<!--<text class="user-text">性别：{{user.we.more.sex}}</text>-->
-						<text class="user-text">班级：{{user.info.class}}班</text>
+						<text class="user-text">班级：{{studentinfo.class}}班</text>
 					</view>
 					<view class="info-bd-right">
-						<text class="user-text">学院：{{user.info.college}}</text>
-						<text class="user-text">专业：{{user.info.major}}</text>
+						<text class="user-text">学院：{{studentinfo.college}}</text>
+						<text class="user-text">专业：{{studentinfo.major}}</text>
 					</view>
 				</view>
 			</view>
