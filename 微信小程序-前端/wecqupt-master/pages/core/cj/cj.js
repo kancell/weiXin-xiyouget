@@ -14,8 +14,8 @@ Page({
 		var that = this;
 		wx.showNavigationBarLoading();
 		wx.request({
-			url: app._server + "api-get",
-			method: 'get',
+			url: app._server + "api-all",
+			method: 'post',
 			success: function(res) {
 				if(res.statusCode === 400){
 					that.setData({
@@ -40,8 +40,7 @@ Page({
 						}
 					})
 					that.setData({
-						cjInfo: res.data,
-						
+						cjInfo: res.data,				
 						re: false
 					})
 				}

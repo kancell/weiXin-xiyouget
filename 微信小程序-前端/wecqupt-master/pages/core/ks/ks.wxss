@@ -104,7 +104,6 @@
 }
 
 .ks-detail {
-    display: none;
     flex-direction: column;   
     overflow: hidden;
     padding: 0;
